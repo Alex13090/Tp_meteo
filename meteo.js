@@ -2,17 +2,17 @@
 // create variable link json
 const url ="https://www.prevision-meteo.ch/services/json/";
 // get button
+
 const btnSend = document.querySelector("form input[value = 'envoyer']");
 // listen onto clic
 btnSend.addEventListener("click", event => requestApi(event));
-// for request
+// function for request from datasheet
 function requestApi(event) {
     event.preventDefault();
     // get input of city
     const city = document.querySelector("form input[name = 'city']");
-    
+    // get id for display
     const display = document.getElementById("display");
-
     console.log(city.value);
     // send request to get info from link
     fetch(`${url}${city.value}`)
@@ -57,7 +57,7 @@ function requestApi(event) {
                 display.appendChild(pTemp);
                 display.appendChild(pWing);
                 display.appendChild(pCloud);
-            } else {
+           } if (day !== data.fcst_day_0) {
                 let h4Date = document.createElement("h4");
                 let icon = document.createElement("img");
                 let pCond = document.createElement("p");
@@ -72,15 +72,28 @@ function requestApi(event) {
                 display.appendChild(pCond);
                 display.appendChild(pTempMax);
             }
-            // for forecast of hour
-            // for(let i = 0; i > 23; i++) {
-            //     let hours = day.hourly_data[i];
-            //     let iconSmall = document.createElement("img");
-            //     iconSmall.src = hours.ICON;
-            //     let p = document.createElement("p");
-            //     p.textContent = `$[i]H00 ${iconSmall.src} ${hours.CONDITION}`;
-            //     display.appendChild(p);
-        //     }
+            let hours = [
+                day.hourly_data['0H00'],
+                day.hourly_data['1H00'],
+                day.hourly_data['2H00'],
+                day.hourly_data['3H00'],
+            ];
+            let h4 = document.createElement("h4");
+            h4.textContent = `Evolution de la journée heure par heure`;
+            display.appendChild(h4);
+            hours.forEach(hour => {
+                let div = document.createElement("div");
+                let span1 = document.createElement("span");
+                let span2 = document.createElement("span");
+                let img1 = document.createElement("img");
+                img1.setAttribute("src", hour.ICON);
+                span1.textContent = `${hours.indexOf(hour)}H00`;
+                span2.textContent = `${hour.CONDITION}`;
+                div.appendChild(span1);
+                div.appendChild(img1);
+                div.appendChild(span2);
+                display.appendChild(div);
+            })
         })
     })
     // if error
