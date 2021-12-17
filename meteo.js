@@ -71,14 +71,6 @@ function requestApi(event) {
                 display.appendChild(icon);
                 display.appendChild(pCond);
                 display.appendChild(pTempMax);
-                for(let i = 0; i > 23; i++) {
-                    let hours = day.hourly_data[i];
-                    let iconSmall = document.createElement("img");
-                    iconSmall.src = hours.ICON;
-                    let p = document.createElement("p");
-                    p.textContent = `$[i]H00 ${iconSmall.src} ${hours.CONDITION}`;
-                    display.appendChild(p);
-                }
             }
             // for forecast of hour
             // for(let i = 0; i > 23; i++) {
