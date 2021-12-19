@@ -51,7 +51,7 @@ function requestApi(event) {
                 h4Cond.appendChild(txt);
                 display.appendChild(h4Cond);
                 img.src = day.icon_big;
-                pTemp.textContent = `Température: ${data.current_condition.tmp}`;
+                pTemp.textContent = `Température: ${data.current_condition.tmp}°C`;
                 pWing.textContent = `Vent: ${data.current_condition.wnd_spd} Km/h, ${data.current_condition.wnd_dir}`;
                 pCloud.textContent = `${day.condition}`;
                 // display in HTML
@@ -68,7 +68,7 @@ function requestApi(event) {
                 h4Date.textContent = `${day.day_long}, ${day.date}`;
                 icon.setAttribute("src", `${day.icon_big}`);
                 pCond.textContent = `${day.condition}`;
-                pTempMax.textContent = `Température minimale: ${day.tmin}, Température maximale: ${day.tmax}`;
+                pTempMax.textContent = `Température minimale: ${day.tmin}°C, Température maximale: ${day.tmax}°C`;
                 display.appendChild(h4Date);
                 display.appendChild(icon);
                 display.appendChild(pCond);
