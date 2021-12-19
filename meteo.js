@@ -29,8 +29,9 @@ function requestApi(event) {
             data.fcst_day_3,
             data.fcst_day_4,
         ];
-        // loop for 4 other days
+        // loop for 5 other days
         forecastDay.forEach(day =>{
+            // for first day
             if (day === data.fcst_day_0) {
                 // create all elements
                 let h2City = document.createElement("h2");
@@ -53,18 +54,19 @@ function requestApi(event) {
                 pTemp.textContent = `Température: ${data.current_condition.tmp}`;
                 pWing.textContent = `Vent: ${data.current_condition.wnd_spd} Km/h, ${data.current_condition.wnd_dir}`;
                 pCloud.textContent = `${day.condition}`;
+                // display in HTML
                 display.appendChild(img);
                 display.appendChild(pTemp);
                 display.appendChild(pWing);
                 display.appendChild(pCloud);
+                // for the others day
            } if (day !== data.fcst_day_0) {
                 let h4Date = document.createElement("h4");
                 let icon = document.createElement("img");
                 let pCond = document.createElement("p");
                 let pTempMax = document.createElement("p");
                 h4Date.textContent = `${day.day_long}, ${day.date}`;
-                icon.setAttribute("src", "");
-                icon.src = day.icon_big;
+                icon.setAttribute("src", `${day.icon_big}`);
                 pCond.textContent = `${day.condition}`;
                 pTempMax.textContent = `Température minimale: ${day.tmin}, Température maximale: ${day.tmax}`;
                 display.appendChild(h4Date);
@@ -72,28 +74,25 @@ function requestApi(event) {
                 display.appendChild(pCond);
                 display.appendChild(pTempMax);
             }
-            let hours = [
-                day.hourly_data['0H00'],
-                day.hourly_data['1H00'],
-                day.hourly_data['2H00'],
-                day.hourly_data['3H00'],
-            ];
+            // hour by hour
             let h4 = document.createElement("h4");
             h4.textContent = `Evolution de la journée heure par heure`;
             display.appendChild(h4);
-            hours.forEach(hour => {
+            // loop for 24H
+            for(let i = 0; i <= 23; i++) {
                 let div = document.createElement("div");
                 let span1 = document.createElement("span");
                 let span2 = document.createElement("span");
                 let img1 = document.createElement("img");
-                img1.setAttribute("src", hour.ICON);
-                span1.textContent = `${hours.indexOf(hour)}H00`;
-                span2.textContent = `${hour.CONDITION}`;
+                img1.setAttribute("src", `${day.hourly_data[`${i}H00`].ICON}`);
+                // object with value in string
+                span1.textContent = `${i}H00`;
+                span2.textContent = `${day.hourly_data[`${i}H00`].CONDITION}`;
                 div.appendChild(span1);
                 div.appendChild(img1);
                 div.appendChild(span2);
                 display.appendChild(div);
-            })
+            }
         })
     })
     // if error
